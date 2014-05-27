@@ -5,15 +5,6 @@ import threading
 import animation as a
 
 
-# Hex values
-#LED_ON_CMD = '20'
-#LED_OFF_CMD = '30'
-#KEY_DN = '00'
-#KEY_UP = '10'
-#CLEAR_CMD = '9'
-#LED_ROW_CMD = '4'
-#LED_COL_CMD = '5'
-
 # BEGIN 128-compat
 LED_ON_CMD = '11'
 LED_OFF_CMD = '10'
@@ -38,14 +29,14 @@ class Monome(object):
         self.baud = baud
         self.keyin = {}
         self.exit_flag = False
-        #self.p_listener = PressListener(self)
+        self.p_listener = PressListener(self)
         self.press = False
 
     def open_serial(self):
         self.ser = serial.Serial(self.serial_port, self.baud)
         self.ser.write(binascii.unhexlify(DEFAULT_INTENSITY))
         a.start_animation(self)
-        #self.p_listener.start()
+        self.p_listener.start()
 
     def close_serial(self):
         a.end_animation(self)
