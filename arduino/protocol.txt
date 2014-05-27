@@ -1,0 +1,13 @@
+CMD = 1 byte
+============
+0x0 = Servo
+0x1 = LED
+
+
+DATA = 1 byte
+==============
+If Servo = Position
+range: 0x00 - 0xB4 (0-180)
+
+If LED = LED num.
+range: 0x00 - 0x04
