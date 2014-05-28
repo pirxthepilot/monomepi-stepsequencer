@@ -18,6 +18,7 @@ DEFAULT_INTENSITY = '1980'
 # END 128-compat
 
 TICK = 0.01
+TICK = 0.01
 
 
 class Monome(object):
@@ -39,7 +40,9 @@ class Monome(object):
         self.p_listener.start()
 
     def close_serial(self):
+        time.sleep(1)
         a.end_animation(self)
+        self.call_exit()
         self.ser.close()
         
     def check_led_states(self):
@@ -81,7 +84,6 @@ class Monome(object):
             self.ser.write(binascii.unhexlify(cmd))
 
     def set_all(self, state):
-        #self.ser.write(binascii.unhexlify(CLEAR_CMD + str(state)))
 		if state == 0:
 			self.ser.write(binascii.unhexlify(CLEAR_CMD))	#128-compat
 		if state == 1:
