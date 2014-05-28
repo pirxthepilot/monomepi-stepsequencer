@@ -4,7 +4,7 @@ Servo myservo;
 
 const int servoPin = 3;
 const int ledPins[] = {8, 9, 10, 11, 12};
-const int initpos = 90; // initial servo position
+const int initpos = 80; // initial servo position
 
 byte b[] = {0x00, 0x00, 0x00};
 int dlyCat;

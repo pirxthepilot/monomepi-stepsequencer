@@ -4,8 +4,8 @@ import binascii
 
 
 CMD_PAD = 0.01      # Padding for servo command delays
-INIT_POS = '90'     # Servo's initial position (defined in sketch as initpos)
-MAX_POS = '180'     # Servo's accepted maximum angle
+INIT_POS = '80'     # Servo's initial position (defined in sketch as initpos)
+MAX_POS = '160'     # Servo's accepted maximum angle
 
 class Servo(Arduino):
 
@@ -16,7 +16,7 @@ class Servo(Arduino):
 
     def open_servo(self):
         self.open()
-        intro = [('120','100'),('90','300')]
+        intro = [(str(int(INIT_POS)+30),'100'),(INIT_POS,'300')]
         for i in range(0,3):
             self.move(intro)
         
