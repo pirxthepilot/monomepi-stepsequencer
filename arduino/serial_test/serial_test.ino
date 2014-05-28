@@ -49,8 +49,6 @@ void runServo(int pos, int dur)
 {
   myservo.write(pos);
   delay(dur);
-  myservo.write(initpos);
-  delay(500);
 }
 
 void blink() {
