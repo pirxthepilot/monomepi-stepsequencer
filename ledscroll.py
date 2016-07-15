@@ -42,7 +42,7 @@ class LedScroller(Monome):
             return True
         else:
             return False
-    
+
     def start_scroll(self, speed=0.1):
         disp = self.encode_msg(list(self.messages[0]))
         buffer_matrix = []
@@ -81,7 +81,7 @@ class LedScroller(Monome):
         binrep = format(setbit, "08b")
         data = binrep[-7:]
         control = self.get_led(str(i), '7')
-        return  format(int(control+data, 2), "02x")
+        return format(int(control+data, 2), "02x")
 
     def check_if_exit(self):
         if self.get_led(EXIT_X, EXIT_Y) == '1':

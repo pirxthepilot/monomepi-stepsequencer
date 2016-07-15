@@ -57,17 +57,21 @@ def led_animate(monome, servo):
                 if monome.get_led(str(x), str(y)) == '1':
                     monome.set_led('10', str(x), str(y))
 
-
 # INIT
 #
-a = Servo('COM5')
-a.open_servo()
+#a = Servo('COM5')
+#a.open_servo()
 
-m = Monome('COM6')
-buttons = [ Button(m, 2, 7, 'trigger'),
-            Button(m, 5, 7, 'trigger'),
-            Button(m, 4, 7, 'toggle'),
-            Button(m, 7, 7, 'trigger') ]
+m = Monome('/dev/ttyUSB0')
+buttons = [Button(m, 0, 0, 'toggle'),
+           Button(m, 0, 1, 'toggle'),
+           Button(m, 0, 2, 'toggle'),
+           Button(m, 0, 3, 'toggle'),
+           Button(m, 0, 4, 'toggle'),
+           Button(m, 0, 5, 'toggle'),
+           Button(m, 0, 6, 'toggle'),
+           Button(m, 0, 7, 'toggle'),
+           Button(m, 7, 7, 'toggle')]
 m.open_serial()
 button_thread = ButtonHandler(m, buttons)
 button_thread.start()
@@ -75,46 +79,23 @@ button_thread.start()
 
 # MAIN
 #
-led_animate(m, a)
-sweep_firstpass = True
+# led_animate(m, a)
 
 while not check_if_exit(m):
-
-    while do_sweep(m):
-        #print a.currentpos
-        if sweep_firstpass:
-            if int(a.currentpos) <= int(int(a.maxpos) / 2): goingleft = True
-            else: goingleft = False
-            reverse = False
-            sweep_firstpass = False
-        if (int(a.currentpos) == 0) or (int(a.currentpos) == int(a.maxpos)):
-            reverse = True
-        if goingleft:
-            if reverse:
-                goingleft = False
-                reverse = False
-                step_right(a)
-            else: step_left(a)
-        else:
-            if reverse:
-                goingleft = True
-                reverse = False
-                step_left(a)
-            else: step_right(a)
-    
-    while do_left(m):
-        step_left(a)
-
-    while do_right(m):
-        step_right(a)
+    for col in range(8):
+        #m.set_col(str(col), '01')
+        m.set_col('0', '01')
+        sleep(0.5)
+        m.set_col('0', '00')
+        sleep(0.5)
 
 
 # EXIT
 #
 #sleep(1)
 m.close_serial()
-a.reset()
-a.close()
+#a.reset()
+#a.close()
 
 
 # motions = [('70','100'), ('50','250'), ('80','200'), ('40','250'), ('90','500'), ('30','300'), ('100','1000'), ('20','500'), ('110','1000'), ('10','1200')]
