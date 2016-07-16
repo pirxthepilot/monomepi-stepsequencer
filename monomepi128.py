@@ -24,7 +24,7 @@ TICK = 0.01
 class Monome(object):
 
     def __init__(self, serial_port, baud=115200, led_state=[]):
-        for i in range(64):
+        for i in range(128):    # 128 compat
             led_state.append('0')
         self.led_state = led_state
         self.serial_port = serial_port
@@ -58,6 +58,7 @@ class Monome(object):
         assert(isinstance(x, str))
         assert(isinstance(y, str))
         state = self.led_state[int(str(y)+str(x), 8)]
+        #state = self.led_state[int(str(y)+str(x), 16)]  # 128 compat
         return state
 
     def set_led(self, state, x, y, light_feedback=True):
@@ -67,6 +68,7 @@ class Monome(object):
         if state == LED_OFF_CMD:
             s = '0'
         self.led_state[int(str(y)+str(x), 8)] = s
+        #self.led_state[int(str(y)+str(x), 16)] = s  # 128 compat
         if light_feedback:
             cmd = state + '0'+str(x) + '0'+str(y)
             self.ser.write(binascii.unhexlify(cmd))
@@ -102,7 +104,7 @@ class Monome(object):
             self.keyin['c'] = out_string[0:2]
             self.keyin['x'] = out_string[3:4]
             self.keyin['y'] = out_string[5:6]
-            # print '  c=' + self.keyin['c'] + ' x=' + self.keyin['x'] + ' y=' + self.keyin['y']
+            print '  c=' + self.keyin['c'] + ' x=' + self.keyin['x'] + ' y=' + self.keyin['y']
             return True
         else:
             return False
@@ -155,8 +157,10 @@ class Button(object):
 
     def __init__(self, monome_instance, x, y, buttontype, speed=0):
         self.monome_instance = monome_instance
-        self.x = str(x)
-        self.y = str(y)
+        self.x = str(x)  # 128 compat
+        self.y = str(y)  # 128 compat
+        #self.x = str(format(x, '01x'))  # 128 compat
+        #self.y = str(format(y, '01x'))  # 128 compat
         assert(buttontype == 'none' or
                buttontype == 'toggle' or
                buttontype == 'trigger' or

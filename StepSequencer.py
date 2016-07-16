@@ -11,8 +11,8 @@ LEFT_X = '2'
 LEFT_Y = '7'
 SWEEP_X = '4'
 SWEEP_Y = '7'
-EXIT_X = '7'
-EXIT_Y = '7'
+EXIT_X = '0'
+EXIT_Y = '0'
 
 def check_if_exit(monome):
     if monome.get_led(EXIT_X, EXIT_Y) == '1':
@@ -71,7 +71,8 @@ buttons = [Button(m, 0, 0, 'toggle'),
            Button(m, 0, 5, 'toggle'),
            Button(m, 0, 6, 'toggle'),
            Button(m, 0, 7, 'toggle'),
-           Button(m, 7, 7, 'toggle')]
+           Button(m, 7, 7, 'toggle'),
+           Button(m, 15, 7, 'toggle')]
 m.open_serial()
 button_thread = ButtonHandler(m, buttons)
 button_thread.start()
@@ -80,14 +81,13 @@ button_thread.start()
 # MAIN
 #
 # led_animate(m, a)
-
+col = 0
 while not check_if_exit(m):
-    for col in range(8):
-        #m.set_col(str(col), '01')
-        m.set_col('0', '01')
-        sleep(0.5)
-        m.set_col('0', '00')
-        sleep(0.5)
+    #m.set_col(str(col), '01')
+    m.set_col(str(format(int(col), '01x')), 'FF')
+    sleep(0.4)
+    m.set_col(str(format(int(col), '01x')), '00')
+    col = (col + 1) % 16
 
 
 # EXIT
