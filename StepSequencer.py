@@ -93,20 +93,28 @@ button_thread.start()
 #
 # led_animate(m, a)
 col = 0
+prevcol = 0
+enabled_rows = []
+
 while not check_if_exit(m):
 
-    # Light up column for x seconds (based on BPM)
+    # Light up column and reset previous column LEDs
     m.set_col(str(format(int(col), '01x')), 'FF')
+    for row in enabled_rows:
+        m.set_led_nostate('11', str(format(prevcol, '01x')), str(row))
+
+    # Delay (based on BPM)
     sleep(float(60) / float(BPM))
 
-    # Reset column LED states to original values
-    # m.set_col(str(format(int(col), '01x')), '00')
+    # Store current column's LED states
+    enabled_rows = []
     for row in range(8):
-        #print str(m.get_led(str(format(col, '01x')), str(row)))
-        if m.get_led(str(format(col, '01x')), str(row)) == '0':
-            m.set_led_nostate('10', str(format(col, '01x')), str(row))
+        if m.get_led(str(format(col, '01x')), str(row)) == '1':
+            enabled_rows.append(row)
 
-    # Next step!
+    # Turn off column LEDs and move to next
+    m.set_col(str(format(int(col), '01x')), '00')
+    prevcol = col
     col = (col + 1) % 16
 
 
