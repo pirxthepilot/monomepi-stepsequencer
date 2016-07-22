@@ -33,6 +33,8 @@ void setup()
   s11.attach(11);
   s11.write(initpos);
 
+  s6timer = millis();
+
   Serial.begin(115200); 
 }
 
@@ -40,17 +42,20 @@ void loop()
 { 
   if (Serial.available()) {
     
-    Serial.readBytes(b, 3);
+    Serial.readBytes(b, 3);  
  
     dlyCat = (b[1] << 8) + b[2];
     if ((millis() - s4timer) >= dlyCat ) {
-      runS4((unsigned char)(b[0]), dlyCat);
+      runS4((unsigned char)(b[0]));
+    }
+    //runS5((unsigned char)(b[0]), dlyCat);
+    if ((millis() - s6timer) >= dlyCat ) {
+      runS4((unsigned char)(b[0]));
     }
   }
-
 }
 
-void runS4(int pos, int dur)
+void runS4(int pos)
 {
   s4.write(pos);
   s4timer = millis();
@@ -59,5 +64,12 @@ void runS4(int pos, int dur)
 void runS5(int pos, int dur)
 {
   s5.write(pos);
-  s5timer = millis();
+  delay(dur);
+  //s5timer = millis();
+}
+
+void runS6(int pos)
+{
+  s6.write(pos);
+  s6timer = millis();
 }
