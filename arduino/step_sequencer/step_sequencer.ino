@@ -5,7 +5,11 @@ Servo s4, s5, s6, s7, s8, s9, s10, s11;
 const int initpos = 80; // initial servo position
 byte b[] = {0x00, 0x00, 0x00};
 int dlyCat;
-unsigned long s4timer;
+int s4delay = 0;
+boolean s4push = false;
+unsigned long curTime;
+unsigned long prevTime = 0;
+unsigned long s4timer = 0;
 unsigned long s5timer;
 unsigned long s6timer;
 unsigned long s7timer;
@@ -33,32 +37,40 @@ void setup()
   s11.attach(11);
   s11.write(initpos);
 
-  s6timer = millis();
-
   Serial.begin(115200); 
 }
 
 void loop() 
 { 
+
+//  curTime = millis();
+
   if (Serial.available()) {
-    
+
     Serial.readBytes(b, 3);  
- 
     dlyCat = (b[1] << 8) + b[2];
-    if ((millis() - s4timer) >= dlyCat ) {
-      runS4((unsigned char)(b[0]));
-    }
-    //runS5((unsigned char)(b[0]), dlyCat);
-    if ((millis() - s6timer) >= dlyCat ) {
-      runS4((unsigned char)(b[0]));
-    }
+    runS4((unsigned char)(b[0]));
+
+//    if (curTime - s4timer >= s4delay) {
+//      s4push = true;
+//      s4delay = dlyCat;
+//    }
+
   }
+
+//  if (s4push) {
+//    if (curTime - s4timer >= s4delay) {
+//      runS4((unsigned char)(b[0]));
+//      s4timer = millis();
+//    }
+//    s4push = false;
+//  }
+
 }
 
 void runS4(int pos)
 {
   s4.write(pos);
-  s4timer = millis();
 }
 
 void runS5(int pos, int dur)

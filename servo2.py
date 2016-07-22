@@ -3,7 +3,7 @@ from time import sleep
 import binascii
 
 
-CMD_PAD = 0.05      # Padding for servo command delays
+# CMD_PAD = 0.01      # Padding for servo command delays
 INIT_POS = '80'     # Servo's initial position (defined in sketch as initpos)
 MIN_POS = '5'       # Servo's safe minimum position
 MAX_POS = '160'     # Servo's accepted maximum angle
@@ -19,7 +19,7 @@ class Servo(Arduino):
 
     def open_servo(self):
         self.open()
-        intro = [(str(int(INIT_POS)+30), '300'), (INIT_POS, '600')]
+        intro = [(str(int(INIT_POS)+30), '100'), (INIT_POS, '300')]
         for i in range(0, 3):
             self.move(intro)
 
@@ -39,7 +39,7 @@ class Servo(Arduino):
             sleep(computedelay(dly))
 
     def reset(self):
-        motion = [(INIT_POS, '500')]
+        motion = [(INIT_POS, '800')]
         self.move(motion)
 
 
@@ -53,5 +53,6 @@ def tobytes(b1, b2):
 
 
 def computedelay(dly):
-    insecs = float(int(dly)/1000)
-    return insecs + CMD_PAD
+    insecs = float(float(dly)/1000)
+    # return insecs + CMD_PAD
+    return insecs
