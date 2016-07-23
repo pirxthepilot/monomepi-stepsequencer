@@ -1,6 +1,7 @@
 from arduinopi import Arduino
 from time import sleep
 import binascii
+import threading
 
 
 # CMD_PAD = 0.01      # Padding for servo command delays
@@ -16,6 +17,7 @@ class Servo(Arduino):
         self.currentpos = INIT_POS
         self.minpos = MIN_POS
         self.maxpos = MAX_POS
+        # self.thread = threading.Thread(target=self.run)
 
     def open_servo(self):
         self.open()
@@ -23,7 +25,7 @@ class Servo(Arduino):
         for i in range(0, 3):
             self.move(intro)
 
-    def move(self, motions):
+    def _move(self, motions):
         for motion in motions:
             servo = motion[0]
             pos = motion[1]
@@ -38,6 +40,10 @@ class Servo(Arduino):
             self.write(tobytes(servo, pos))
             self.currentpos = pos
             sleep(computedelay(dly))
+
+    def move(self, motions):
+        thread = threading.Thread(target=self._move, args=(motions,)).start()
+        thread.__init__()
 
     def reset(self, servo):
         motion = [(servo, INIT_POS, '800')]
