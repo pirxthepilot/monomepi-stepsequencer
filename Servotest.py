@@ -1,5 +1,5 @@
-from math import floor
-from servo2 import Servo
+from threading import Thread
+from servo4 import Servo
 from time import sleep
 
 STEP_TIME = '10'    # in milliseconds
@@ -16,20 +16,28 @@ EXIT_Y = '7'
 
 # INIT
 #
-a = Servo('/dev/ttyACM0')
+a = Servo('/dev/ttyACM0', '4')
+b = Servo('/dev/ttyACM0', '5')
 a.open_servo()
+b.open_servo()
 
 
 # MAIN
 #
 
-
-
-# motions = [('70','100'), ('50','250'), ('80','200'), ('40','250'), ('90','500'), ('30','300'), ('100','1000'), ('20','500'), ('110','1000'), ('10','1200')]
-sleep(2)
-motions = [('10','1000'), ('60','1000'), ('120','1000')]
-a.move(motions)
-sleep(2)
+flick = [('40', '2000'), ('120', '2000')]
+m1 = [('10', '800'), ('120', '800')]
+m2 = [('10', '800'), ('120', '800')]
+a.move(flick)
+b.move(flick)
+sleep(0.2)
+a.move(flick)
+b.move(flick)
+sleep(1)
 a.reset()
+#sleep(0.2)
+b.reset()
+sleep(0.2)
 a.close()
+b.close()
 print "Done."

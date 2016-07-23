@@ -20,12 +20,3 @@ class Arduino(object):
 
     def write(self, message):
         self.ser.write(str(message))
-        
-        
-#ser = serial.Serial('COM5', 9600)
-#while 1:
-#    ser.readline()
-#time.sleep(3)
-#print "write some shit.."
-#ser.write('3')
-#ser.close()
