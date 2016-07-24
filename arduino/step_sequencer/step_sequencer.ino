@@ -40,17 +40,17 @@ void loop()
       s4.write((unsigned char)(b[1]));
     } else if (servo_id == 5) {
       s5.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 6) {
       s6.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 7) {
       s7.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 8) {
       s8.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 9) {
       s9.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 10) {
       s10.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 11) {
       s11.write((unsigned char)(b[1]));
     }
 
