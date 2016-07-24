@@ -24,25 +24,35 @@ a.open_servo()
 #
 
 servothreads = []
-s4 = ServoControl(a, '4')
-servothreads.append(s4)
-s5 = ServoControl(a, '5')
-servothreads.append(s5)
+c1 = ServoControl(a, '4')
+d1 = ServoControl(a, '5')
+e1 = ServoControl(a, '6')
+f1 = ServoControl(a, '7')
+g1 = ServoControl(a, '8')
+a1 = ServoControl(a, '9')
+b1 = ServoControl(a, '10')
+c2 = ServoControl(a, '11')
+servothreads.append(c1)
+servothreads.append(d1)
+servothreads.append(e1)
+servothreads.append(f1)
+servothreads.append(g1)
+servothreads.append(a1)
+servothreads.append(b1)
+servothreads.append(c2)
 
-for t in servothreads:
-    t.start()
+for st in servothreads:
+    st.start()
 
 while True:
     try:
-#        s4.hit = True
-#        sleep(0.5)
-        s4.hit = True
-        s5.hit = True
+        for st in servothreads:
+            st.hit = True
         sleep(0.5)
     except KeyboardInterrupt:
-        for t in servothreads:
-            t.exit_flag = True
-            print "\nExit servo " + t.servo
+        for st in servothreads:
+            st.exit_flag = True
+            print "\nExit servo " + st.servo
         break
 
 
