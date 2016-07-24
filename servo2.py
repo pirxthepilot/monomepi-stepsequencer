@@ -1,5 +1,4 @@
 from arduinopi import Arduino
-from time import sleep
 import binascii
 
 
@@ -19,28 +18,23 @@ class Servo(Arduino):
 
     def open_servo(self):
         self.open()
-        intro = [('4', str(int(INIT_POS)+30), '100'), ('4', INIT_POS, '300')]
-        for i in range(0, 3):
-            self.move(intro)
 
     def move(self, motions):
         for motion in motions:
             servo = motion[0]
             pos = motion[1]
-            dly = motion[2]
             if pos == 'pause':
                 pos = self.currentpos
             elif int(pos) > int(self.maxpos):
                 pos = self.maxpos
             elif int(pos) < 0:
                 pos = self.minpos
-            print "Move to position [" + pos + "] in [" + dly + "ms]"
+            #print "Move servo " + servo + " to position [" + pos + "]"
             self.write(tobytes(servo, pos))
             self.currentpos = pos
-            sleep(computedelay(dly))
 
     def reset(self, servo):
-        motion = [(servo, INIT_POS, '800')]
+        motion = [(servo, INIT_POS)]
         self.move(motion)
 
 
@@ -51,9 +45,3 @@ def tobytes(b1, b2):
     b2_hex = format(int(b2), '02x')             # SERVO DELAY (ms) = 2 bytes
     # print "Delay in hex: " + b2_hex
     return binascii.unhexlify(b1_hex + b2_hex)  # Total = 3 bytes sent!
-
-
-def computedelay(dly):
-    insecs = float(float(dly)/1000)
-    # return insecs + CMD_PAD
-    return insecs
