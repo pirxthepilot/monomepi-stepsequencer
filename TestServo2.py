@@ -23,14 +23,14 @@ b1 = ServoControl(a, '6')
 c2 = ServoControl(a, '7')
 
 servothreads.append(c1)
-#servothreads.append(d1)
-#servothreads.append(e1)
-#servothreads.append(f1)
-#servothreads.append(g1)
-#servothreads.append(a1)
-#servothreads.append(b1)
-#servothreads.append(c2)
-#
+servothreads.append(d1)
+servothreads.append(e1)
+servothreads.append(f1)
+servothreads.append(g1)
+servothreads.append(a1)
+servothreads.append(b1)
+servothreads.append(c2)
+
 for st in servothreads:
     st.start()
 
@@ -38,7 +38,7 @@ while True:
     try:
         for st in servothreads:
             st.hit = True
-        sleep(.5)
+        sleep(1)
     except KeyboardInterrupt:
         for st in servothreads:
             st.exit_flag = True

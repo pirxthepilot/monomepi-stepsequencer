@@ -37,16 +37,6 @@ a = Servo('/dev/ttyACM0')
 a.open_servo()
 
 servos = []
-
-#servos[0] = ServoControl(a, '4')
-#servos[1] = ServoControl(a, '5')
-#servos[2] = ServoControl(a, '6')
-#servos[3] = ServoControl(a, '7')
-#servos[4] = ServoControl(a, '8')
-#servos[5] = ServoControl(a, '9')
-#servos[6] = ServoControl(a, '9')
-#servos[7] = ServoControl(a, '9')
-
 servos.append(ServoControl(a, '0'))
 servos.append(ServoControl(a, '1'))
 servos.append(ServoControl(a, '2'))
