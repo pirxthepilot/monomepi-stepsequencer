@@ -34,23 +34,23 @@ void loop()
 
     Serial.readBytes(b, 2);
     int servo_id = b[0];
-    if (servo_id == 4) {
+    if (servo_id == 0) {
       //dlyCat = (b[1] << 8) + b[2];
       //runS4((unsigned char)(b[1]));
       s4.write((unsigned char)(b[1]));
-    } else if (servo_id == 5) {
+    } else if (servo_id == 1) {
       s5.write((unsigned char)(b[1]));
-    } else if (servo_id == 6) {
+    } else if (servo_id == 2) {
       s6.write((unsigned char)(b[1]));
-    } else if (servo_id == 7) {
+    } else if (servo_id == 3) {
       s7.write((unsigned char)(b[1]));
-    } else if (servo_id == 8) {
+    } else if (servo_id == 4) {
       s8.write((unsigned char)(b[1]));
-    } else if (servo_id == 9) {
+    } else if (servo_id == 5) {
       s9.write((unsigned char)(b[1]));
-    } else if (servo_id == 10) {
+    } else if (servo_id == 6) {
       s10.write((unsigned char)(b[1]));
-    } else if (servo_id == 11) {
+    } else if (servo_id == 7) {
       s11.write((unsigned char)(b[1]));
     }
 
