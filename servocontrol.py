@@ -1,5 +1,4 @@
 import threading
-from time import sleep
 
 
 # Issues the commands to the Servo object
@@ -16,14 +15,6 @@ class ServoControl(threading.Thread):
     def run(self):
         while not self.exit_flag:
             if self.hit:
-                self.hit_motion()
+                self.servo_instance.move(self.servo)
                 self.hit = False
-        #print "Exit servocontrol " + self.servo
-
-    def hit_motion(self):
-        motions = [(self.servo, '120')]
-        self.servo_instance.move(motions)
-        sleep(.08)
-        # motions = [(self.servo, '80')]
-        # self.servo_instance.move(motions)
-        self.servo_instance.reset(self.servo)
+        # print "Exit servocontrol " + self.servo
