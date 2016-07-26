@@ -28,14 +28,13 @@ void setup()
   s[6].write(initpos);
   s[7].attach(11);
   s[7].write(initpos);
+  //pinMode(13, OUTPUT);
 
   Serial.begin(115200); 
 }
 
 void loop() 
-{ 
-
-  unsigned long curtime = millis();
+{
 
   if (Serial.available()) {
 
@@ -45,6 +44,7 @@ void loop()
     for (int i = 0; i < 8; i++) {
       if (servo_id == i) {
         s[i].write(hitpos);
+        //digitalWrite(13, HIGH);
         servo_start[i] = millis();
         is_running[i] = true;
       }
@@ -53,8 +53,10 @@ void loop()
   }
 
   for (int i = 0; i < 8; i++) {
+    unsigned long curtime = millis();
     if (is_running[i]) {
       if ((curtime - servo_start[i]) >= hitdly) {
+        //digitalWrite(13, LOW);
         s[i].write(initpos);
         servo_start[i] = 0;
         is_running[i] = false;
