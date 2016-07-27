@@ -32,7 +32,7 @@ while True:
         #a.move(s1)
         #print s1
         #sleep(1)
-        a.move(int(new, 2))
+        a.move(format(int(new, 2), '02x'))
         print new
         sleep(1)
     except KeyboardInterrupt:

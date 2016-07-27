@@ -11,12 +11,5 @@ class Servo(Arduino):
         self.open()
 
     def move(self, servodata):
-        self.write(tobytes(servodata))
-
-
-# FUNCTIONS
-
-def tobytes(b1):
-    b1_hex = format(int(b1), '02x')
-    print b1_hex
-    return binascii.unhexlify(b1_hex)
+        """Now accepts hex, not int"""
+        self.write(binascii.unhexlify(servodata))

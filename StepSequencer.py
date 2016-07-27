@@ -1,6 +1,5 @@
 from time import sleep
-from servo2 import Servo
-from servocontrol import ServoControl
+from servo_step import Servo
 from monomepi128 import Monome, Button, ButtonHandler
 
 BPM = 120
@@ -15,6 +14,12 @@ def check_if_exit(monome):
     if monome.get_led(EXIT_X, EXIT_Y) == '1':
         monome.call_exit()
         return monome.exit_flag
+
+
+def servo_format(bits):
+    """Returns a hex representation of the bits"""
+    string = ''.join(list(reversed(bits)))
+    return format(int(string, 2), '02x')
 
 
 # INIT monome
@@ -36,20 +41,7 @@ button_thread.start()
 a = Servo('/dev/ttyACM0')
 a.open_servo()
 
-servos = []
-servos.append(ServoControl(a, '0'))
-servos.append(ServoControl(a, '1'))
-servos.append(ServoControl(a, '2'))
-servos.append(ServoControl(a, '3'))
-servos.append(ServoControl(a, '4'))
-servos.append(ServoControl(a, '5'))
-servos.append(ServoControl(a, '6'))
-servos.append(ServoControl(a, '7'))
-
-for st in servos:
-    st.start()
-    sleep(0.05)
-    a.reset(st.servo)
+servoarray = ['0' for i in range(8)]
 
 
 # MAIN
@@ -70,9 +62,14 @@ while not check_if_exit(m):
     # column's LED states
     enabled_rows = []
     for row in range(8):
-        if m.get_led(str(format(col, '01x')), str(row)) == '1':
-            servos[row].hit = True
+        buttonstate = m.get_led(str(format(col, '01x')), str(row))
+        if buttonstate == '1':
             enabled_rows.append(row)
+        servoarray[row] = buttonstate   # Populate servo data bits
+    # Fire the servos!
+    if int(''.join(servoarray), 2) != 0:
+        print ''.join(list(reversed(servoarray)))   # Debug only
+        a.move(servo_format(servoarray))
 
     # Delay (based on BPM)
     sleep(float(60) / float(BPM))
@@ -87,8 +84,6 @@ while not check_if_exit(m):
 #
 sleep(1)
 m.close_serial()
-for st in servos:
-    st.exit_flag = True
 a.close()
 
 print "All done."
