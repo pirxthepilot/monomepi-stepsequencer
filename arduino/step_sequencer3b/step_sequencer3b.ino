@@ -3,9 +3,10 @@
 Servo s[8];
 
 const int initpos = 80; // initial servo position
-const int hitpos = 70; // hit position
+//const int hitpos = 70; // hit position
 const long hitdly = 75; // hit delay in millisecs
 byte b[] = {0x00};
+int hitmove[8] = {-10, 10, -10, 10, -10, 10, -10, 10};
 unsigned long servo_start[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 boolean is_running[8] = {false, false, false, false, false, false, false, false};
 
@@ -42,7 +43,7 @@ void loop()
 
     for (int i = 0; i < 8; i++) {
       if (bitRead(servodata,i) == 1) {
-        s[i].write(hitpos);
+        s[i].write(initpos + hitmove[i]);
         //digitalWrite(13, HIGH);
         servo_start[i] = millis();
         is_running[i] = true;
