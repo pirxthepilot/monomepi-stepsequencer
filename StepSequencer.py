@@ -68,7 +68,7 @@ while not check_if_exit(m):
         servoarray[row] = buttonstate   # Populate servo data bits
     # Fire the servos!
     if int(''.join(servoarray), 2) != 0:
-        print ''.join(list(reversed(servoarray)))   # Debug only
+        #print ''.join(list(reversed(servoarray)))   # Debug only
         a.move(servo_format(servoarray))
 
     # Delay (based on BPM)
