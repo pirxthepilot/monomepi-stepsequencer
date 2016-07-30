@@ -2,7 +2,7 @@ from time import sleep
 from servo_step import Servo
 from monomepi128 import Monome, Button, ButtonHandler
 
-BPM = 120
+BPM = 140
 EXIT_X = 'f'
 EXIT_Y = '7'
 

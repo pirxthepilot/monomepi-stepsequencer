@@ -16,23 +16,24 @@ s2 = '00000110'
 
 s3 = ['0' for i in range(8)]
 
-s3[0] = '1'
-s3[1] = '1'
-s3[2] = '0'
-s3[3] = '1'
-s3[4] = '0'
-s3[5] = '1'
+s3[0] = '00000101'
+s3[1] = '00001010'
+s3[2] = '00010100'
+s3[3] = '0'
+s3[4] = '1'
+s3[5] = '0'
 s3[6] = '0'
-s3[7] = '0'
+s3[7] = '1'
 
-new = ''.join(list(reversed(s3)))
 
 while True:
     try:
+        for i in range(8):
         #a.move(s1)
         #print s1
         #sleep(1)
-        a.move(format(int(new, 2), '02x'))
+            new = ''.join(list(reversed(s3[i])))
+            a.move(format(int(new, 2), '02x'))
         print new
         sleep(1)
     except KeyboardInterrupt:
