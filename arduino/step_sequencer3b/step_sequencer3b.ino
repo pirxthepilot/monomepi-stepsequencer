@@ -6,8 +6,8 @@ Servo s[8];
 //const int hitpos = 70; // hit position
 const long hitdly = 75; // hit delay in millisecs
 byte b[] = {0x00};
-int initpos[8] = {85, 80, 78, 74, 77, 79, 80, 85};
-int hitmove[8] = {10, -10, 11, -11, 10, -11, 10, 10};
+int initpos[8] = {74, 80, 78, 73, 77, 78, 78, 83};
+int hitmove[8] = {10, -10, 11, -13, 9, -12, 8, 8};
 unsigned long servo_start[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 boolean is_running[8] = {false, false, false, false, false, false, false, false};
 
