@@ -187,6 +187,7 @@ class PressListener(threading.Thread):
         while not self.monome_instance.exit_flag:
             if self.monome_instance.read_keys():
                 self.monome_instance.press = True
+            time.sleep(0.01)
         print 'Press Listener thread exit.'
 
 
@@ -208,6 +209,7 @@ class ButtonHandler(threading.Thread):
                         elif butt.buttontype == 'toggle' or butt.buttontype == 'blink':
                             self.monome_instance.toggle()
                 self.monome_instance.press = False
+            time.sleep(0.01)
             # Blinker
 ##            for butt in self.buttons:
 ##                if butt.buttontype == 'blink' and self.monome_instance.get_led(butt.x, butt.y) == '1':
