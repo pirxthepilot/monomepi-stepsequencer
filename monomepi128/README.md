@@ -1,12 +1,11 @@
 # monomepi128
 
-My own python monome library, using the pyserial module.
+My own python monome library, using the pyserial module. Also includes the arduinopi.Arduino class.
 
 
 ## Projects
 
-Conway's Game of Life https://vimeo.com/65304931
-
-Twitter Feed Display https://vimeo.com/67579615
-
-Monome + Arduino + Servo https://vimeo.com/96793877
+* Monome-controlled "Analog" Step Sequencer https://vimeo.com/178279145
+* Conway's Game of Life https://vimeo.com/65304931
+* Twitter Feed Display https://vimeo.com/67579615
+* Monome + Arduino + Servo https://vimeo.com/96793877
