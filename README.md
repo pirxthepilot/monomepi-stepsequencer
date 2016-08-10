@@ -1,6 +1,6 @@
 # monome-controlled "analog" step sequencer
 
-monome + arduino + python + raspberry pi + a bunch of servos
+monome + raspberry pi + arduino + python + a bunch of servos
 
 
 ### Older Projects 
