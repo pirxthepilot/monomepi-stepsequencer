@@ -2,6 +2,9 @@
 
 monome + raspberry pi + arduino + python + a bunch of servos
 
+[![play](http://i.imgur.com/2Xyrm51.png)]
+(https://vimeo.com/178279145)
+
 
 ### Older Projects 
 
